@@ -37,12 +37,6 @@ public class YaMailTest {
         driver.manage().window().maximize();
     }
 
-    @BeforeClass(dependsOnMethods = "startBrowser", description = "Add implicit wait and maximize window")
-    public void addImplicitly() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
-
     @Test(description = "Check valid Title")
     public void checkTitle(){
         String expectedTitle = "Яндекс.Почта — бесплатная электронная почта";
