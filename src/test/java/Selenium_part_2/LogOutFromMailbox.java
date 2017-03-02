@@ -1,5 +1,6 @@
 package Selenium_part_2;
 
+import capabilities.GetDriverCapabilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by Zakir_Mustafin on 2/4/2017.
  */
-public class LogOutFromMailbox extends YaMailAbstract {
+public class LogOutFromMailbox extends GetDriverCapabilities {
 
     private WebDriverWait wait;
 
@@ -28,7 +29,8 @@ public class LogOutFromMailbox extends YaMailAbstract {
     }
 
     public void logOut(){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mail-User-Picture.js-user-picture")));
         clickOnUserImage.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("b-user-dropdown-content")));
         clickOnExitButton.click();

@@ -1,5 +1,6 @@
 package Selenium_part_2;
 
+import capabilities.GetDriverCapabilities;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Created by Zakir_Mustafin on 2/3/2017.
  */
-public class EnterDetailsOfNewLetter extends YaMailAbstract{
+public class EnterDetailsOfNewLetter extends GetDriverCapabilities{
 
     @FindBy (xpath = "//span[text()='Отправить']")
     WebElement checkButtonSendExsist;
@@ -30,7 +31,7 @@ public class EnterDetailsOfNewLetter extends YaMailAbstract{
     }
 
     public PopUpWarningWindow enterDetailsOfTheLetter(String address, String subject, String textOfMail){
-        JavascriptExecutor executor = ((JavascriptExecutor) driver);
+        JavascriptExecutor executor = ((JavascriptExecutor) getDriver());
 
         addressForSending.sendKeys(address);
         subjectForLetter.sendKeys(subject);
@@ -40,7 +41,7 @@ public class EnterDetailsOfNewLetter extends YaMailAbstract{
 
 
 
-        return new  PopUpWarningWindow(driver);
+        return new  PopUpWarningWindow(getDriver());
     }
 
     public boolean sendButtonExsist(){

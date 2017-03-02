@@ -1,5 +1,6 @@
 package Selenium_part_2;
 
+import capabilities.GetDriverCapabilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Created by Zakir_Mustafin on 2/3/2017.
  */
-public class InboxMailPage extends YaMailAbstract{
+public class InboxMailPage extends GetDriverCapabilities{
 
     @FindBy (xpath = "//span[text()='Входящие']")
     WebElement wordInboxInMailbox;
@@ -39,7 +40,7 @@ public class InboxMailPage extends YaMailAbstract{
 //        Action dragAndDropSomeLetter = actions.dragAndDrop(draggable, droppable).build();
 //        dragAndDropSomeLetter.perform();
 
-        Actions builder = new Actions(driver);
+        Actions builder = new Actions(getDriver());
         Action dragAndDrop = builder.moveToElement(draggable)
                 .clickAndHold(draggable)
                 .moveToElement(droppable)
@@ -48,13 +49,14 @@ public class InboxMailPage extends YaMailAbstract{
         dragAndDrop.perform();
 
         Thread.sleep(3000);
-        builder.contextClick(elementForContexClick).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
+        builder.moveToElement(elementForContexClick);
+        builder.contextClick(elementForContexClick).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
         Thread.sleep(5000);
 
-        highlightElement(driver, buttonCreateNewLetter);
+        highlightElement(getDriver(), buttonCreateNewLetter);
         buttonCreateNewLetter.click();
 
-       return new EnterDetailsOfNewLetter (driver);
+       return new EnterDetailsOfNewLetter (getDriver());
     }
 
 

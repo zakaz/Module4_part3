@@ -30,16 +30,11 @@ public class YaMailTest {
 
     @BeforeClass(description = "Start browser")
     public void startBrowser() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\zakir_mustafin@epam.com\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");
         driver = GetDriverCapabilities.getDriver();
 //        driver = new ChromeDriver();
         driver.get(START_URL);
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
-
-        String expectedTitle = "Яндекс.Почта — бесплатная электронная почта";
-        String actualTitle = driver.getTitle();
-        Assert.assertEquals(actualTitle, expectedTitle);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
     }
 
     @BeforeClass(dependsOnMethods = "startBrowser", description = "Add implicit wait and maximize window")
@@ -48,7 +43,14 @@ public class YaMailTest {
         driver.manage().window().maximize();
     }
 
-    @Test(description = "Login to Mail.Yandex account")
+    @Test(description = "Check valid Title")
+    public void checkTitle(){
+        String expectedTitle = "Яндекс.Почта — бесплатная электронная почта";
+        String actualTitle =  driver.getTitle();
+        Assert.assertEquals(actualTitle, expectedTitle);
+    }
+
+    @Test(dependsOnMethods = "checkTitle", description = "Login to Mail.Yandex account")
     public void loginToYaMail() {
         // Login via user-defined method
         new SignInPage(driver).loginToYaMail(LOGIN, PASSWORD);
@@ -106,7 +108,7 @@ public class YaMailTest {
 
     @AfterClass(description = "Stop Browser")
     public void stopBrowser() {
-//        driver.quit();
+        driver.quit();
     }
 
 }

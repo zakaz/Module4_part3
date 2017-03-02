@@ -1,5 +1,6 @@
 package Selenium_part_2;
 
+import capabilities.GetDriverCapabilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 /**
  * Created by Zakir_Mustafin on 2/4/2017.
  */
-public class CheckDraftFolder extends YaMailAbstract{
+public class CheckDraftFolder extends GetDriverCapabilities{
 
     private By addressElement;
     private By subjectElement;
@@ -25,7 +26,7 @@ public class CheckDraftFolder extends YaMailAbstract{
     protected SendingMail clickOnDraftButton(){
         draftButton.click();
 //        wait.until(ExpectedConditions.titleIs("Черновики — Яндекс.Почта"));
-        return new SendingMail(driver);
+        return new SendingMail(getDriver());
     }
 
     public boolean checkLetterExsistInDraft(String address, String subject, String textOfMail){
@@ -33,8 +34,8 @@ public class CheckDraftFolder extends YaMailAbstract{
         subjectElement = By.xpath("//span[text()='" + subject + "']");
         textElement = By.xpath("//span[text()='" +textOfMail+ "']");
 
-        if (driver.findElement(addressElement).isDisplayed() && driver.findElement(subjectElement).isDisplayed() &&
-                driver.findElement(textElement).isDisplayed()){
+        if (getDriver().findElement(addressElement).isDisplayed() && getDriver().findElement(subjectElement).isDisplayed() &&
+                getDriver().findElement(textElement).isDisplayed()){
             return true;
         } else return false;
     }
